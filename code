@@ -1,0 +1,79 @@
+struct Node {
+    int data;
+    Node *next;
+};
+typedef struct Node* node;
+//cap phat dong mot node moi vo du lieu la so nguyen x;
+node makeNode(int x) {
+    node tmp = new Node();
+    tmp->data = x;
+    tmp->next = NULL;
+    return tmp;
+}
+// kiem tra rong
+bool empty(node a) {
+     return a == NULL;
+}
+int size(node a) {
+    int cnt = 0;
+    while ( a != NULL) {
+        ++cnt;
+        a = a->next;
+    }
+return cnt;
+}
+void insertFirst(node &a, int x) {
+    node tmp = makeNode(x);
+    if(a == NULL) {
+        a = tmp;
+    }
+    else {
+        tmp->next = a;
+        a = tmp;
+    }
+}
+void insertLast(node &a, int x) {
+    node tmp = makeNode(x);
+    if(a == NULL) a = tmp;
+    else {
+        node p = a;
+    while ( p->next != NULL) p = p->next;
+    p->next = tmp;
+    }
+}
+void insertMiddle(node &a, int x, int pos) {
+    node p = a;
+    for (int i = 1; i < pos - 1; ++i) p = p->next;
+    node tmp = makeNode(x);
+    tmp->next = p->next;
+    p->next = tmp;
+}
+void deleteFirst(node &a) {
+    if(a == NULL) return;
+    a = a->next;
+}
+void deleteLast(node &a) {
+    if( a == NULL) return;
+    node truoc = NULL, sau = a;
+    while (sau->next != NULL) {
+        truoc = sau;
+        sau = sau->next;
+    }
+    if(truoc == NULL) a = NULL;
+    else truoc->next = NULL;
+}
+void deleteMidlle(node &a, int pos) {
+    node truoc = NULL, sau = a;
+    for (int i = 1; i < pos; ++i) {
+        truoc = sau;
+        sau = sau -> next;
+    }
+    if(truoc == NULL) a = NULL;
+    else truoc->next = sau->next;
+}
+void in(node a) {
+    while( a != NULL) {
+        cout<<a->data<<" ";
+        a = a->next;
+    }
+}
