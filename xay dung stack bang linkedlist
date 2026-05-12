@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node *pNext;
+};
+struct List {
+    Node *pHead;
+    Node *pTail;
+};
+int size(List s) {
+    int cnt = 0;
+    while(s.pHead != NULL) {
+        cnt++;
+        s.pHead = s.pHead->next;
+    }
+return cnt;
+}
+void push(List& s, Node *tmp) {
+    if (s.pHead == NULL) {
+        s.pHead = tmp;
+        s.pTail = s.pHead;
+    }
+    else {
+        tmp->pNext= s.pHead;
+        s.pHead = tmp;
+    }
+}
+
+void pop(List &s) {
+    if(s.pHead == NULL) return;
+    Node* tmp = s.pHead;
+    s.pHead = s.pHead->next;
+    if (s.pHead == NULL) s.pTail = NULL;
+    delete tmp;
+}
+bool isEmpty(List s) {
+    return s.pHead == NULL;
+}
+int top(List s) {
+    if(isEmpty(s)) return 0;
+    return s.pHead->data;
+}
