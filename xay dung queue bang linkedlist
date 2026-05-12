@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node *pNext;
+};
+struct List {
+    Node *pHead;
+    Node *pTail;
+};
+int size (List q) {
+    int cnt = 0;
+    while(q.pHead != NULL) {q.pHead = q.pHead->next; cnt++; }
+    return cnt;
+}
+bool isEmpty(List q) {
+    return q.pHead == NULL:
+}
+void enqueue(List &q, Node *tmp) {
+    if(q.pHead == NULL) {
+        q.pHead = tmp;
+        q.pTail = tmp;
+    }
+    else {
+        q.pTail->next = tmp;
+        q.pTail = tmp;
+    }
+}
+void dequeue(List &q) {
+    if(q.pHead == NULL) return;
+    Node *tmp = q.pHead;
+    q.pHead = q.pHead->next;
+    if(q.pHead == NULL) q.pTail = NULL;
+    delete tmp;
+}
