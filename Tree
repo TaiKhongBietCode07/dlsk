@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+typedef Node* Tree;
+void createTree(Tree &T) {
+    T = NULL;
+}
+Node* createNode(int x) {
+    Node* p = new Node();
+    if(p == NULL) exit(1);
+    else {
+        p->data = x;
+        p->left = NULL;
+        p->right = NULL;
+    }
+return p;
+}
+void insertNode (Tree &T, int x) {
+    if(T != NULL) {
+        if(T->data > x) return insertNode(T->left, x);
+        if(T->data < x) return insertNode(T->right, x);
+    }
+    T = createNode(x);
+}
+Node* findNode(Tree T, int x) {
+    if(T == NULL) return NULL;
+    if(T->data > x) return findNode(T->left, x);
+    else if(T->data < x) return findNode(T->right ,x);
+    else return T;
+}
+
+void thaythe2(Tree &p, Tree &T) {
+    if(T->right != NULL) thaythe2(p,T->right);
+    else {
+        p->data = T->data;
+        p = T;
+        T = NULL;
+    }
+}
+void deleteNode(Tree &T, int x) {
+    if(T->data > x) return deleteNode(T->left, x);
+    if(T->data < x) return deleteNode(T->right ,x);
+    else {
+        if(T->right == NULL && T->left == NULL) T = NULL;
+        else if(T->right == NULL || T->left == NULL) {
+            if(T->right == NULL) T->left = NULL;
+            else T->right = NULL;
+        }
+        else {
+            Node*p = T;
+            thaythe2(p, T->left); // Node *p = thaythe1(p, T->right);
+            delete p;
+        }
+    }
+}
